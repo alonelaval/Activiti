@@ -1161,16 +1161,6 @@
           <artifactId>rhino</artifactId>
         </dependency>
       </dependencies>
-      <repositories>
-        <repository>
-          <id>activiti-thirdparty</id>
-          <name>Activiti thirdparty Repository</name>
-          <url>https://artifacts.alfresco.com/nexus/content/repositories/activiti-thirdparty</url>
-          <snapshots>
-            <enabled>false</enabled>
-          </snapshots>
-        </repository>
-      </repositories>
     </profile>
   </profiles>
 
