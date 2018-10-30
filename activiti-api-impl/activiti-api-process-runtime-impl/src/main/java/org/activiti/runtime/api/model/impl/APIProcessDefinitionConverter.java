@@ -18,6 +18,9 @@ package org.activiti.runtime.api.model.impl;
 
 import org.activiti.api.process.model.ProcessDefinition;
 import org.activiti.api.runtime.model.impl.ProcessDefinitionImpl;
+import org.activiti.bpmn.model.BpmnModel;
+import org.activiti.bpmn.model.FlowElement;
+import org.activiti.bpmn.model.StartEvent;
 
 public class APIProcessDefinitionConverter extends ListConverter<org.activiti.engine.repository.ProcessDefinition, ProcessDefinition>
         implements ModelConverter<org.activiti.engine.repository.ProcessDefinition, ProcessDefinition> {
@@ -29,6 +32,19 @@ public class APIProcessDefinitionConverter extends ListConverter<org.activiti.en
         processDefinition.setDescription(internalProcessDefinition.getDescription());
         processDefinition.setVersion(internalProcessDefinition.getVersion());
         processDefinition.setKey(internalProcessDefinition.getKey());
+        return processDefinition;
+    }
+
+    public ProcessDefinition fromExtractFormKey(org.activiti.engine.repository.ProcessDefinition internalProcessDefinition, BpmnModel model) {
+        ProcessDefinitionImpl processDefinition = (ProcessDefinitionImpl) from(internalProcessDefinition);
+        FlowElement initialFlowElement = model.getProcessById(processDefinition.getKey())
+                .getInitialFlowElement();
+
+        if (initialFlowElement instanceof StartEvent) {
+            StartEvent startEvent = (StartEvent) initialFlowElement;
+            String formKey = startEvent.getFormKey();
+            processDefinition.setFormKey(formKey);
+        }
         return processDefinition;
     }
 }

@@ -79,7 +79,7 @@ public class ProcessAdminRuntimeImpl implements ProcessAdminRuntime {
         } else {
             processDefinition = repositoryService.getProcessDefinition(processDefinitionId);
         }
-        return processDefinitionConverter.from(processDefinition);
+        return processDefinitionConverter.fromExtractFormKey(processDefinition, repositoryService.getBpmnModel(processDefinitionId));
     }
 
     @Override

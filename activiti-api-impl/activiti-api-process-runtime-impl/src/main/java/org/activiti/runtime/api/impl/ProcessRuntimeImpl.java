@@ -107,7 +107,7 @@ public class ProcessRuntimeImpl implements ProcessRuntime {
         if (!securityPoliciesManager.canRead(processDefinition.getKey())) {
             throw new ActivitiObjectNotFoundException("Unable to find process definition for the given id:'" + processDefinitionId + "'");
         }
-        return processDefinitionConverter.from(processDefinition);
+        return processDefinitionConverter.fromExtractFormKey(processDefinition, repositoryService.getBpmnModel(processDefinitionId));
     }
 
     @Override
